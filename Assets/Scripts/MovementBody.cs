@@ -18,6 +18,7 @@ public class MovementBody : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        ClampPositionWithinBounds();
     }
 
 
@@ -34,5 +35,8 @@ public class MovementBody : MonoBehaviour
         rb.AddForce(Vector3.Scale(force, new Vector3(1f, 0f, 1f)), ForceMode.Force);
     }
 
-
+    private void ClampPositionWithinBounds()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Max(0f, transform.position.z));
+    }
 }
