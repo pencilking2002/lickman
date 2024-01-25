@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class HeadMovement : MonoBehaviour
+public class MovementHead : MonoBehaviour
 {
     [Header("Movement")]
     public float headSmoothing;
@@ -29,10 +29,8 @@ public class HeadMovement : MonoBehaviour
         //Create a new plane with normal (0,0,1) at the position away from the camera you define in the Inspector. This is the plane that you can click so make sure it is reachable.
         infinitePlane = new Plane(Vector3.forward, m_DistanceFromCamera);
     }
-    // Start is called before the first frame update
 
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         MoveHead();
