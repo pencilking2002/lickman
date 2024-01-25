@@ -6,9 +6,18 @@ using static UnityEngine.UI.Image;
 
 public class MovementHead : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement Mouse")]
     public float headSmoothing;
+
+    [Header("Movement Not Mouse")]
+    public float speed;
+
+    [Header("Position")]
     public float floorYClamp;
+
+
+    [Header("Control Scheme")]
+    public bool useArrowKeys;
 
     [Header("Transforms")]
     public Transform neckConnectPoint;
@@ -33,13 +42,24 @@ public class MovementHead : MonoBehaviour
 
     void FixedUpdate()
     {
-        MoveHead();
+        if(useArrowKeys)
+            MoveHeadUsingTranslation();
+        else
+            MoveHeadBasedOnMousePosition();
     }
 
-    private void MoveHead()
+    private void MoveHeadBasedOnMousePosition()
     {
         transform.position = Vector3.Lerp(transform.position, GetHeadGoalPosition(transform.position), Time.deltaTime * headSmoothing);
     }
+    private void MoveHeadUsingTranslation()
+    {
+        Vector3 direction = new Vector3(ManagerInputSystem.instance.GetArrowKeyInput().x, ManagerInputSystem.instance.GetArrowKeyInput().y, 0f);
+
+        transform.Translate(direction * speed * Time.deltaTime);
+        transform.position = ClampPositionHalfCircle(transform.position, neckLength);
+    }
+
     private Vector3 GetHeadGoalPosition(Vector3 currentPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

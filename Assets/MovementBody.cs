@@ -7,13 +7,11 @@ public class MovementBody : MonoBehaviour
     [Header("Movement")]
     public float speed;
 
-    private InputSystem inputSystem;
     private Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        inputSystem = GetComponent<InputSystem>();
     }
 
     // Update is called once per frame
@@ -25,7 +23,7 @@ public class MovementBody : MonoBehaviour
 
     private void Move()
     {
-        Vector2 input = inputSystem.GetWASDInput();
+        Vector2 input = ManagerInputSystem.instance.GetWASDInput();
 
         Vector3 goalDirection = new Vector3(input.x,0f,input.y);
 
